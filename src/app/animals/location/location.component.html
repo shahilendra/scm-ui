@@ -1,0 +1,64 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput formControlName="startDate" [matDatepicker]="startDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker  #startDate></mat-datepicker>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>End Date</mat-label>
+                    <input matInput formControlName="endDate" [matDatepicker]="endDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker  #endDate></mat-datepicker>
+                  </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Location</mat-label>
+                    <mat-select formControlName="locationId" >
+                        <mat-option *ngFor="let location of locations" [value]="location.id">
+                        {{location.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+    </table>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> Start Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.startDate| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> End Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.endDate| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>

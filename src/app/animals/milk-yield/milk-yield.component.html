@@ -1,0 +1,81 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Date</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                    <mat-datepicker  #date></mat-datepicker>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput
+                    [format]="12"
+                    formControlName="time"
+                    [ngxMatTimepicker]="time"
+                    placeholder="12:00"
+                    readonly />
+                    <mat-icon matSuffix
+                              (click)="time.open()">
+                        
+                    </mat-icon>
+                </mat-form-field>
+                <div class="ngx-mtp-box-bordered">
+                     <ngx-mat-timepicker color="accent"
+                                         appendToInput="true"
+                                         #time></ngx-mat-timepicker>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Milk(lt)</mat-label>
+                    <input matInput formControlName="milkYield" type="number">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Milking Time</mat-label>
+                    <mat-select formControlName="milkingTime" >
+                        <mat-option *ngFor="let milkingTime of milkingTimes" [value]="milkingTime">
+                        {{milkingTime}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time| date: 'hh:mm a'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="milkYield">
+        <th mat-header-cell *matHeaderCellDef> Milk Yield </th>
+        <td mat-cell *matCellDef="let element"> {{element.milkYield}} </td>
+    </ng-container>  
+    <ng-container matColumnDef="milkingTime">
+        <th mat-header-cell *matHeaderCellDef> Milking Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.milkingTime}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>

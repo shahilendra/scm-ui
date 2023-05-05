@@ -1,0 +1,7 @@
+.highlight{
+    background: #42A948; /* green */
+  }
+  
+  .highlight:hover{
+    background: #42A948 !important; /* green */
+  }

@@ -1,0 +1,287 @@
+<div class="grid-container">
+    <mat-grid-list cols="6" rowHeight="350px">
+      <mat-grid-tile colspan="2" rowspan="4">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Animals
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <table mat-table [dataSource]="animals" class="mat-elevation-z8">            
+                <ng-container matColumnDef="earTag">
+                    <th mat-header-cell *matHeaderCellDef> Ear Tag </th>
+                    <td mat-cell *matCellDef="let element"> {{element.earTag}} </td>
+                </ng-container>
+                <ng-container matColumnDef="breedName">
+                    <th mat-header-cell *matHeaderCellDef> Breed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.breedName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="statusName">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+                </ng-container>  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="selectedAnimal?.id == row.id?'highlight':''"
+         (click)="highlight(row)" ></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="4" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Animal
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+                <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                    <tr>
+                        <td><b>{{selectedAnimal?.earTag}}</b></td><td><b>{{selectedAnimal?.name}}</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Birth Date:</b> {{selectedAnimal?.birthDate| date: 'dd/MM/yyyy'}}</td><td>{{selectedAnimal?.gender}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Group: </b>{{selectedAnimal?.groupName}}</td><td>{{selectedAnimal?.breedName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{selectedAnimal?.notes}}</td><td></td>
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                    <tr>
+                        <td><button mat-raised-button color="primary">Update Data</button></td>
+                        <td><button mat-raised-button color="primary">Other Information</button></td>
+                        <td><button mat-raised-button color="warn">Delete Animal</button></td>
+                        <td><button mat-raised-button color="primary" (click)="openDialog()">Add Notes</button></td>
+                        <td><button mat-raised-button color="primary">Transaction History</button></td>
+                    </tr>
+                </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Status
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary">Update Data</button></td>
+                    </tr>
+                    <tr>
+                    <td><button mat-raised-button color="primary">Other Information</button></td>
+                    
+                </tr>
+            </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Calving
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary">Update Data</button></td>
+                    </tr>
+                    <tr>
+                    <td><button mat-raised-button color="primary">Other Information</button></td>
+                    
+                </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Insemination Count : 0
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Insemination Failed', 1)">Insemination Failed</button>
+                  </td>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Pregnant', 1)">Pregnant</button>
+                  </td>
+                  </tr>
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="openInsemination()">Details</button></td>
+                    </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Activity
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Breeding Activities
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Lactation / Milk Yield
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="milkYield()">Milk Yield</button></td>
+                    </tr>
+                    <tr>
+                    <td><button mat-raised-button color="primary" (click)="openLactation()">Lactation</button></td>
+                    
+                </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Body Weight/Body Score
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="openWeight()">Body Weight</button></td>
+                    </tr>
+                    <tr>
+                    <td><button mat-raised-button color="primary" (click)="openBodyScore()">Body Score Details</button></td>
+                    
+                </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Location
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <tr>
+                <td>
+                  <button mat-raised-button color="primary" (click)="location()">Details</button></td>
+                </tr>
+              </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Photo
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Groups
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="group()">Detail</button></td>
+                    </tr>
+              </table>
+
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Slaughterhouse List
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+                Examination
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>Card Content Here</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  

@@ -1,0 +1,37 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Group</mat-label>
+                    <mat-select formControlName="groupId" >
+                        <mat-option *ngFor="let group of groups" [value]="group.id">
+                        {{group.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+    </table>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Group </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>

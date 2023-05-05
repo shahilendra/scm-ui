@@ -1,0 +1,128 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Insemination Date</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                    <mat-datepicker  #date></mat-datepicker>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Examination Date</mat-label>
+                    <input matInput formControlName="examinationDate" [matDatepicker]="examinationDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="examinationDate"></mat-datepicker-toggle>
+                    <mat-datepicker  #examinationDate></mat-datepicker>
+                  </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                  <mat-form-field>
+                    <input matInput
+                    [format]="12"
+                    formControlName="time"
+                    [ngxMatTimepicker]="time"
+                    placeholder="12:00"
+                    readonly />
+                    <mat-icon matSuffix
+                              (click)="time.open()">
+                        
+                    </mat-icon>
+                </mat-form-field>
+                <div class="ngx-mtp-box-bordered">
+                     <ngx-mat-timepicker color="accent"
+                                         appendToInput="true"
+                                         #time></ngx-mat-timepicker>
+                </div>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Price</mat-label>
+                    <input matInput formControlName="price" type="number">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Staff</mat-label>
+                    <input matInput formControlName="staff" >
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Method</mat-label>
+                    <mat-select formControlName="methodId" >
+                        <mat-option *ngFor="let method of methods" [value]="method">
+                        {{method}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Detection Type</mat-label>
+                    <mat-select formControlName="detectionTypeId" >
+                        <mat-option *ngFor="let detectionType of detectionTypes" [value]="detectionType">
+                        {{detectionType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" *ngIf="form.value.methodId =='Natural Mating'">
+                    <mat-label>Bull Ear Tag</mat-label>
+                    <input matInput formControlName="bullEarTag" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width" *ngIf="form.value.methodId =='Artificial Insemination'">
+                    <mat-label>Sperma No</mat-label>
+                    <input matInput formControlName="spermaNo" >
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+  
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Notes</mat-label>
+        <textarea matInput  formControlName="notes"></textarea>
+      </mat-form-field>
+    </p>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="examinationDate">
+        <th mat-header-cell *matHeaderCellDef> Examination Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.examinationDate| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time| date: 'hh:mm a'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef> Notes </th>
+        <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>
