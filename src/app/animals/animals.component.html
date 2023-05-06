@@ -29,7 +29,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="4" rowspan="1">
+      <mat-grid-tile colspan="4" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -65,7 +65,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -88,7 +88,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -111,7 +111,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -122,7 +122,7 @@
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr *ngIf="profileData?.inseminationStatus">
-                  <td>
+                  <td class="red-color">
                     <b>Insemination Status</b>
                     {{profileData?.inseminationStatus}}
                   </td>
@@ -144,7 +144,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -156,7 +156,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -168,7 +168,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -181,12 +181,12 @@
                 <tr>
                   <td>
                     
-                    <span>{{getLactationString()}}</span>
+                    <span class="red-color">{{getLactationString()}}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span>Daily/Weekly Average: {{profileData?.dailyMilk??0}}\ {{profileData?.weeklyMilk??0}} lt</span>
+                    <span class="red-color">Daily/Weekly Average: {{profileData?.dailyMilk??0}}\ {{profileData?.weeklyMilk??0}} lt</span>
                   </td>
                 </tr>
                 <tr>
@@ -202,7 +202,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -214,12 +214,12 @@
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr>
                   <td>
-                    <span>Weight: {{profileData?.bodyWeight??0}}</span>
+                    <span class="red-color">Weight: {{profileData?.bodyWeight??0}} kg</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span>Body Score: {{profileData?.bodyScore??0}}</span>
+                    <span class="red-color">Body Score: {{profileData?.bodyScore??0}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -235,7 +235,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -247,7 +247,7 @@
               <table>
                 <tr>
                   <td>
-                    <span>{{profileData?.locationName}}</span>
+                    <span class="red-color">{{profileData?.locationName}}</span>
                   </td>
                 </tr>
               <tr>
@@ -260,7 +260,7 @@
         </mat-card>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -272,7 +272,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -282,6 +282,10 @@
           <mat-card-content class="dashboard-card-content">
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr *ngFor="let item of groups">
+                  <td>
+                    {{item.name}}
+                  </tr>
                 <tr>
                     <td>
                       <button mat-raised-button color="primary" (click)="group()">Detail</button></td>
@@ -292,7 +296,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>
@@ -304,7 +308,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
+      <mat-grid-tile colspan="1" rowspan="1" *ngIf="selectedAnimal">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title>

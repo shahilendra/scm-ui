@@ -12,6 +12,7 @@ import { LocationComponent } from './location/location.component';
 import { MilkYieldComponent } from './milk-yield/milk-yield.component';
 import { AnimalGroupComponent } from './animal-group/animal-group.component';
 import { DatePipe } from '@angular/common';
+import { AnimalGroupService } from './animal-group/animal-group.service';
 
 @Component({
   selector: 'app-animals',
@@ -24,9 +25,11 @@ export class AnimalsComponent {
   displayedColumns: string[] = ['earTag', 'breedName', "statusName"];
   selectedAnimal: any;
   profileData: any;
+  groups: any = [];
   constructor(private toastr: ToastrService, private animalService: AnimalService,
     private dialog: MatDialog,  private inseminationService: InseminationService,
-    private datePipe: DatePipe) {}
+    private datePipe: DatePipe,
+    private animalGroupService: AnimalGroupService) {}
   ngOnInit() {
     this.getAnimals();
   }
@@ -55,6 +58,7 @@ export class AnimalsComponent {
   highlight(row: any){
     this.selectedAnimal = row;
     this.getProfile();
+    this.getData();
   }
 
   openDialog(): void {
@@ -83,7 +87,7 @@ export class AnimalsComponent {
   inseminationStatusChanged(status: any, id: any) {
     this.inseminationService.putStatus(status, this.selectedAnimal.id, id)
       .subscribe((data)=>{
-        this.getAnimals();
+        this.getProfile();
         this.toastr.success('Insemination Status Changed Sucessfully!', 'Animals');
       },
       (error)=>{
@@ -150,6 +154,7 @@ export class AnimalsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getProfile();
+      this.getData();
     });
   }
   getLactationString(): string {
@@ -165,5 +170,14 @@ export class AnimalsComponent {
       value = `${value}${this.profileData?.lactationDays}. day(s)`;
     }
     return value;
+  }
+  getData(){
+    this.animalGroupService.get(this.selectedAnimal.id)
+    .subscribe((data)=>{
+      this.groups = data;
+    },
+    (error)=>{
+      this.toastr.error(error?.error?.message, 'Groups');
+    });
   }
 }
