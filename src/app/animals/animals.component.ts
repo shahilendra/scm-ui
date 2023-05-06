@@ -11,27 +11,42 @@ import { BodyScoreComponent } from './body-score/body-score.component';
 import { LocationComponent } from './location/location.component';
 import { MilkYieldComponent } from './milk-yield/milk-yield.component';
 import { AnimalGroupComponent } from './animal-group/animal-group.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-animals',
   templateUrl: './animals.component.html',
-  styleUrls: ['./animals.component.css']
+  styleUrls: ['./animals.component.css'],
+  providers: [DatePipe]
 })
 export class AnimalsComponent {
   animals = [];
   displayedColumns: string[] = ['earTag', 'breedName', "statusName"];
   selectedAnimal: any;
+  profileData: any;
   constructor(private toastr: ToastrService, private animalService: AnimalService,
-    private dialog: MatDialog,  private inseminationService: InseminationService) {}
+    private dialog: MatDialog,  private inseminationService: InseminationService,
+    private datePipe: DatePipe) {}
   ngOnInit() {
     this.getAnimals();
+  }
+
+  getProfile() {
+    this.animalService.getProfile(this.selectedAnimal.id)
+    .subscribe((data)=>{
+      this.profileData = data;
+      // this.toastr.success('Animal Profile Load Sucessfully!', 'Animal');
+    },
+    (error)=>{
+      this.toastr.error(error?.error?.message, 'Animals');
+    });
   }
   getAnimals(){
     this.animalService.getAnimals()
     .subscribe((data)=>{
       this.animals = data;
       this.selectedAnimal = null;
-      this.toastr.success('Animals Load Sucessfully!', 'Animals');
+      // this.toastr.success('Animals Load Sucessfully!', 'Animals');
     },
     (error)=>{
       this.toastr.error(error?.error?.message, 'Animals');
@@ -39,6 +54,7 @@ export class AnimalsComponent {
   }
   highlight(row: any){
     this.selectedAnimal = row;
+    this.getProfile();
   }
 
   openDialog(): void {
@@ -61,7 +77,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.toastr.success('Notes Added Sucessfully!', 'Notes');
+      this.getProfile();
     });
   }
   inseminationStatusChanged(status: any, id: any) {
@@ -82,6 +98,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
   openWeight(): void {
@@ -91,6 +108,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
   openBodyScore(): void {
@@ -100,6 +118,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
   
@@ -110,6 +129,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
   milkYield() {
@@ -119,6 +139,7 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
   group() {
@@ -128,6 +149,21 @@ export class AnimalsComponent {
       height: '800px'
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
+  }
+  getLactationString(): string {
+    let value = '';
+    // 3 - Lact. no and 5. day(s)
+    if(this.profileData?.lactationNo) {
+      value = `${this.profileData?.lactationNo} - Lact. no and `;
+    }
+    if(this.profileData?.lactationEndDate) {
+      let datePipeString = this.datePipe.transform(Date.now(),'dd/MM/yyyy');      
+      value = `${value}${datePipeString} end date`;
+    } else {
+      value = `${value}${this.profileData?.lactationDays}. day(s)`;
+    }
+    return value;
   }
 }

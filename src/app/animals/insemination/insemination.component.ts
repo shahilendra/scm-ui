@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InseminationComponent {
   entitys = [];
-  displayedColumns: string[] = ['date', 'examinationDate', 'time', "notes"];
+  displayedColumns: string[] = ['date', 'examinationDate', 'time','status','methodId','detectionTypeId','bullEarTag', 'spermaNo', "notes"];
   selectedRow: any;
   form!: FormGroup;
   methods = ['Artificial Insemination', 'Natural Mating', 'Embryo transfer'];

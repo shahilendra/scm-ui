@@ -121,12 +121,18 @@
           <mat-card-content class="dashboard-card-content">
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
-                <tr>
+                <tr *ngIf="profileData?.inseminationStatus">
                   <td>
-                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Insemination Failed', 1)">Insemination Failed</button>
+                    <b>Insemination Status</b>
+                    {{profileData?.inseminationStatus}}
+                  </td>
+                </tr>
+                <tr *ngIf="profileData?.inseminationStatus == 'Uncertain'">
+                  <td>
+                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Insemination Failed', profileData?.inseminationId)">Insemination Failed</button>
                   </td>
                   <td>
-                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Pregnant', 1)">Pregnant</button>
+                    <button mat-raised-button color="primary" (click)="inseminationStatusChanged('Pregnant', profileData?.inseminationId)">Pregnant</button>
                   </td>
                   </tr>
                 <tr>
@@ -173,6 +179,17 @@
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr>
+                  <td>
+                    
+                    <span>{{getLactationString()}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Daily/Weekly Average: {{profileData?.dailyMilk??0}}\ {{profileData?.weeklyMilk??0}} lt</span>
+                  </td>
+                </tr>
+                <tr>
                     <td>
                       <button mat-raised-button color="primary" (click)="milkYield()">Milk Yield</button></td>
                     </tr>
@@ -196,6 +213,16 @@
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr>
+                  <td>
+                    <span>Weight: {{profileData?.bodyWeight??0}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Body Score: {{profileData?.bodyScore??0}}</span>
+                  </td>
+                </tr>
+                <tr>
                     <td>
                       <button mat-raised-button color="primary" (click)="openWeight()">Body Weight</button></td>
                     </tr>
@@ -217,10 +244,17 @@
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div>
+              <table>
+                <tr>
+                  <td>
+                    <span>{{profileData?.locationName}}</span>
+                  </td>
+                </tr>
               <tr>
                 <td>
                   <button mat-raised-button color="primary" (click)="location()">Details</button></td>
                 </tr>
+              </table>
               </div>
           </mat-card-content>
         </mat-card>
