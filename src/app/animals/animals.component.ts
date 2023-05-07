@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AnimalService } from './animal.service';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { AddNotesComponent } from './add-notes/add-notes.component';
 import { InseminationComponent } from './insemination/insemination.component';
 import { InseminationService } from './insemination.service';
@@ -13,6 +13,8 @@ import { MilkYieldComponent } from './milk-yield/milk-yield.component';
 import { AnimalGroupComponent } from './animal-group/animal-group.component';
 import { DatePipe } from '@angular/common';
 import { AnimalGroupService } from './animal-group/animal-group.service';
+import { AnimalExaminationComponent } from './animal-examination/animal-examination.component';
+import { AnimalVaccinationComponent } from './animal-vaccination/animal-vaccination.component';
 
 @Component({
   selector: 'app-animals',
@@ -41,7 +43,7 @@ export class AnimalsComponent {
       // this.toastr.success('Animal Profile Load Sucessfully!', 'Animal');
     },
     (error)=>{
-      this.toastr.error(error?.error?.message, 'Animals');
+      // this.toastr.error(error?.error?.message, 'Animals');
     });
   }
   getAnimals(){
@@ -52,7 +54,7 @@ export class AnimalsComponent {
       // this.toastr.success('Animals Load Sucessfully!', 'Animals');
     },
     (error)=>{
-      this.toastr.error(error?.error?.message, 'Animals');
+      // this.toastr.error(error?.error?.message, 'Animals');
     });
   }
   highlight(row: any){
@@ -91,7 +93,7 @@ export class AnimalsComponent {
         this.toastr.success('Insemination Status Changed Sucessfully!', 'Animals');
       },
       (error)=>{
-        this.toastr.error(error?.error?.message, 'Animals');
+        // this.toastr.error(error?.error?.message, 'Animals');
       });
   }
 
@@ -166,7 +168,7 @@ export class AnimalsComponent {
     if(this.profileData?.lactationEndDate) {
       let datePipeString = this.datePipe.transform(Date.now(),'dd/MM/yyyy');      
       value = `${value}${datePipeString} end date`;
-    } else {
+    } else if(this.profileData?.lactationDays){
       value = `${value}${this.profileData?.lactationDays}. day(s)`;
     }
     return value;
@@ -177,7 +179,27 @@ export class AnimalsComponent {
       this.groups = data;
     },
     (error)=>{
-      this.toastr.error(error?.error?.message, 'Groups');
+      // this.toastr.error(error?.error?.message, 'Groups');
+    });
+  }
+  examination() {
+    const dialogRef = this.dialog.open(AnimalExaminationComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
+    });
+  }
+  vaccination() {
+    const dialogRef = this.dialog.open(AnimalVaccinationComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
     });
   }
 }

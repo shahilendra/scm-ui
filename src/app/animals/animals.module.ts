@@ -25,6 +25,8 @@ import { BodyScoreComponent } from './body-score/body-score.component';
 import { LocationComponent } from './location/location.component';
 import { MilkYieldComponent } from './milk-yield/milk-yield.component';
 import { AnimalGroupComponent } from './animal-group/animal-group.component';
+import { AnimalVaccinationComponent } from './animal-vaccination/animal-vaccination.component';
+import { AnimalExaminationComponent } from './animal-examination/animal-examination.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AnimalGroupComponent } from './animal-group/animal-group.component';
     LocationComponent,
     MilkYieldComponent,
     AnimalGroupComponent,
+    AnimalVaccinationComponent,
+    AnimalExaminationComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +65,9 @@ import { AnimalGroupComponent } from './animal-group/animal-group.component';
     AddNotesComponent,
     InseminationComponent,
     LactationComponent,
-    BodyScoreComponent
+    BodyScoreComponent,
+    AnimalVaccinationComponent,
+    AnimalExaminationComponent
   ]
 })
 export class AnimalsModule { }

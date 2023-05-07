@@ -1,0 +1,56 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Date</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                    <mat-datepicker  #date></mat-datepicker>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Vaccine</mat-label>
+                    <mat-select formControlName="vaccine" >
+                        <mat-option *ngFor="let item of medicineList" [value]="item.ad">
+                        {{item.ad}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Notes</mat-label>
+          <textarea matInput  formControlName="notes"></textarea>
+        </mat-form-field>
+      </p>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vaccine">
+        <th mat-header-cell *matHeaderCellDef> Vaccine </th>
+        <td mat-cell *matCellDef="let element"> {{element.vaccine}} </td>
+    </ng-container>
+    <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef> Notes </th>
+        <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>

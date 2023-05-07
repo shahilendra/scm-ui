@@ -14,7 +14,12 @@ export const config = {
   deletionError: 'deletion failed',
   pageLength: 5,
   pageSize: 10,
-  pageSizeOptions: [25, 50, 100]
+  pageSizeOptions: [25, 50, 100],
+  examinationType: ['Pregnancy Check', 'Foot Care','Genital Examination','Dry Off Examination',
+                    'Udder Examination', 'Endoparasite', 'External Parasite','Magnet Examination',
+                  'Calcium Gel','Propylene Glycol', 'Dehorning','Vitamin Mineral Application','Udder Coater',
+                'Udder Plugs', 'Intrauterine Tablet','Systemic Antibiotic', 'Protective Antibiotic', 'Ovarian Cyst Examination',
+              'Intrauterine Antibiotic', 'Intrauterine Systemic Antibiotic', 'Mycosis']
 
 }
 

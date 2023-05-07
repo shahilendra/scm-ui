@@ -1,0 +1,68 @@
+
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Date</mat-label>
+                    <input matInput formControlName="date" [matDatepicker]="date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                    <mat-datepicker  #date></mat-datepicker>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Examination Type</mat-label>
+                    <mat-select formControlName="examinationType" >
+                        <mat-option *ngFor="let item of examinationTypes" [value]="item">
+                        {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Diagnosis</mat-label>
+                    <textarea matInput  formControlName="diagnosis"></textarea>
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Result</mat-label>
+                    <textarea matInput  formControlName="result"></textarea>
+                  </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+        <a (click)="clear()"  >Clear</a>
+    </p>
+  </form>
+  <button mat-button mat-dialog-close>Close</button>
+
+<table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="examinationType">
+        <th mat-header-cell *matHeaderCellDef> Examination Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.examinationType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="result">
+        <th mat-header-cell *matHeaderCellDef> Result </th>
+        <td mat-cell *matCellDef="let element"> {{element.result}} </td>
+    </ng-container>
+    <ng-container matColumnDef="diagnosis">
+        <th mat-header-cell *matHeaderCellDef> Diagnosis </th>
+        <td mat-cell *matCellDef="let element"> {{element.diagnosis}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+    [ngClass]="selectedRow?.id == row.id?'highlight':''"
+(click)="highlight(row)" ></tr>
+</table>

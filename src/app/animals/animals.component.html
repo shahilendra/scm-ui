@@ -181,12 +181,12 @@
                 <tr>
                   <td>
                     
-                    <span class="red-color">{{getLactationString()}}</span>
+                    <span class="red-color" *ngIf="profileData?.lactationNo">{{getLactationString()}}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span class="red-color">Daily/Weekly Average: {{profileData?.dailyMilk??0}}\ {{profileData?.weeklyMilk??0}} lt</span>
+                    <span class="red-color" *ngIf="profileData?.dailyMilk">Daily/Weekly Average: {{profileData?.dailyMilk??0}}\ {{profileData?.weeklyMilk??0}} lt</span>
                   </td>
                 </tr>
                 <tr>
@@ -214,12 +214,12 @@
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr>
                   <td>
-                    <span class="red-color">Weight: {{profileData?.bodyWeight??0}} kg</span>
+                    <span class="red-color" *ngIf="profileData?.bodyWeight">Weight: {{profileData?.bodyWeight??0}} kg</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span class="red-color">Body Score: {{profileData?.bodyScore??0}}</span>
+                    <span class="red-color" *ngIf="profileData?.bodyScore">Body Score: {{profileData?.bodyScore??0}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -304,7 +304,22 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                  <td>
+                    <span class="red-color">Not For Slaughtering</span>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="milkYield()">Yes</button></td>
+                    
+                    <td><button mat-raised-button color="primary" (click)="openLactation()">No</button></td>
+                    
+                </tr>
+              </table>
+            </div>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -316,7 +331,18 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
+            <div>
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+                <tr>
+                    <td>
+                      <button mat-raised-button color="primary" (click)="examination()">Examination History</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <button mat-raised-button color="primary" (click)="vaccination()">Vaccination History</button></td>
+                  </tr>
+              </table>
+            </div>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

@@ -39,11 +39,9 @@ export class NavigationComponent {
     this.auth.getAllMenus()
     .subscribe((data)=>{
       this.manus = data;
-      this.toastr.success('Menu Load Sucessfully!', 'Menu');
     },
     (error)=>{
       console.log(error);
-      this.toastr.error(error?.error?.message, 'Menu');
     });
   }
 
@@ -53,12 +51,10 @@ export class NavigationComponent {
         (data) => {
           localStorage.removeItem('currentUser');
           localStorage.removeItem('token');
-          this.toastr.success('Sigin out Sucessfully!', 'Sigin Out');
           this.router.navigate(['/auth/sigin']);
         },
         error => {
           console.log(error);
-          this.toastr.error(error?.error?.message, 'Sigin Out');
         }
       );
   }
