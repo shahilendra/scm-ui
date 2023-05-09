@@ -1,6 +1,6 @@
 <div class="header-container">
     <div class="contact-dialog-title">
-      <div class="text-white"><h1>Weight</h1></div>
+      <div class="text-white"><h1>Breeding Activity</h1></div>
         <button mat-icon-button (click)="onNoClick()">
             <mat-icon>close</mat-icon>
           </button>      
@@ -10,6 +10,16 @@
     <table class="example-full-width" cellspacing="0">
         <tr>
             <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Heat Diagnosis Type:</mat-label>
+                    <mat-select formControlName="diagnosisType" >
+                        <mat-option *ngFor="let item of heatDiagnosisType" [value]="item">
+                        {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Date</mat-label>
                     <input matInput formControlName="date" [matDatepicker]="date">
@@ -17,36 +27,6 @@
                     <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
                     <mat-datepicker  #date></mat-datepicker>
                   </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                    <input matInput
-                    [format]="12"
-                    formControlName="time"
-                    [ngxMatTimepicker]="time"
-                    placeholder="12:00"
-                    readonly />
-                    <mat-icon matSuffix
-                              (click)="time.open()">
-                              watch_later
-                    </mat-icon>
-                </mat-form-field>
-                <div class="ngx-mtp-box-bordered">
-                     <ngx-mat-timepicker color="accent"
-                                         appendToInput="true"
-                                         #time></ngx-mat-timepicker>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Weight</mat-label>
-                    <input matInput formControlName="weight" type="number">
-                </mat-form-field>
-            </td>
-            <td>
-               
             </td>
         </tr>
     </table>
@@ -64,10 +44,10 @@
         <th mat-header-cell *matHeaderCellDef> Time </th>
         <td mat-cell *matCellDef="let element"> {{element.time}} </td>
     </ng-container>
-    <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>  
+    <ng-container matColumnDef="diagnosisType">
+        <th mat-header-cell *matHeaderCellDef> Diagnosis Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.diagnosisType}} </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
     [ngClass]="selectedRow?.id == row.id?'highlight':''"

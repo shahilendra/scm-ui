@@ -1,4 +1,11 @@
-
+<div class="header-container">
+    <div class="contact-dialog-title">
+      <div class="text-white"><h1>Milk Yields</h1></div>
+        <button mat-icon-button (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+          </button>      
+    </div>
+  </div>
 <form [formGroup]="form" class="example-form" (ngSubmit)="save()">
     <table class="example-full-width" cellspacing="0">
         <tr>
@@ -21,7 +28,7 @@
                     readonly />
                     <mat-icon matSuffix
                               (click)="time.open()">
-                        
+                              watch_later
                     </mat-icon>
                 </mat-form-field>
                 <div class="ngx-mtp-box-bordered">
@@ -55,8 +62,6 @@
         <a (click)="clear()"  >Clear</a>
     </p>
   </form>
-  <button mat-button mat-dialog-close>Close</button>
-
 <table mat-table [dataSource]="entitys" class="mat-elevation-z8">            
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Date </th>

@@ -15,6 +15,9 @@ import { DatePipe } from '@angular/common';
 import { AnimalGroupService } from './animal-group/animal-group.service';
 import { AnimalExaminationComponent } from './animal-examination/animal-examination.component';
 import { AnimalVaccinationComponent } from './animal-vaccination/animal-vaccination.component';
+import { AnimalBreedingComponent } from './animal-breeding/animal-breeding.component';
+import { AnimalBreedingService } from './animal-breeding/animal-breeding.service';
+import { AnimalPregnancyComponent } from './animal-pregnancy/animal-pregnancy.component';
 
 @Component({
   selector: 'app-animals',
@@ -28,10 +31,12 @@ export class AnimalsComponent {
   selectedAnimal: any;
   profileData: any;
   groups: any = [];
+  breedings: any = [];
   constructor(private toastr: ToastrService, private animalService: AnimalService,
     private dialog: MatDialog,  private inseminationService: InseminationService,
     private datePipe: DatePipe,
-    private animalGroupService: AnimalGroupService) {}
+    private animalGroupService: AnimalGroupService,
+    private animalBreedingService: AnimalBreedingService) {}
   ngOnInit() {
     this.getAnimals();
   }
@@ -61,6 +66,7 @@ export class AnimalsComponent {
     this.selectedAnimal = row;
     this.getProfile();
     this.getData();
+    this.getBreeding();
   }
 
   openDialog(): void {
@@ -182,6 +188,16 @@ export class AnimalsComponent {
       // this.toastr.error(error?.error?.message, 'Groups');
     });
   }
+
+  getBreeding(){
+    this.animalBreedingService.get(this.selectedAnimal.id)
+    .subscribe((data)=>{
+      this.breedings = data;
+    },
+    (error)=>{
+      // this.toastr.error(error?.error?.message, 'Groups');
+    });
+  }
   examination() {
     const dialogRef = this.dialog.open(AnimalExaminationComponent, {
       data: {selectedAnimal: this.selectedAnimal},
@@ -194,6 +210,28 @@ export class AnimalsComponent {
   }
   vaccination() {
     const dialogRef = this.dialog.open(AnimalVaccinationComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
+    });
+  }
+  breedinTypes() {
+    const dialogRef = this.dialog.open(AnimalBreedingComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
+      this.getBreeding();
+    });
+  }
+
+  pregnancyCheck() {
+    const dialogRef = this.dialog.open(AnimalPregnancyComponent, {
       data: {selectedAnimal: this.selectedAnimal},
       width: '800px',
       height: '800px'

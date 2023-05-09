@@ -27,6 +27,9 @@ import { MilkYieldComponent } from './milk-yield/milk-yield.component';
 import { AnimalGroupComponent } from './animal-group/animal-group.component';
 import { AnimalVaccinationComponent } from './animal-vaccination/animal-vaccination.component';
 import { AnimalExaminationComponent } from './animal-examination/animal-examination.component';
+import { AnimalBreedingComponent } from './animal-breeding/animal-breeding.component';
+import { AnimalPregnancyComponent } from './animal-pregnancy/animal-pregnancy.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,8 @@ import { AnimalExaminationComponent } from './animal-examination/animal-examinat
     AnimalGroupComponent,
     AnimalVaccinationComponent,
     AnimalExaminationComponent,
+    AnimalBreedingComponent,
+    AnimalPregnancyComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +64,8 @@ import { AnimalExaminationComponent } from './animal-examination/animal-examinat
     MatNativeDateModule,
     MatButtonModule,
     MatDialogModule,
-    NgxMatTimepickerModule
+    NgxMatTimepickerModule,
+    MatIconModule
   ],
   entryComponents: [
     AddNotesComponent,
