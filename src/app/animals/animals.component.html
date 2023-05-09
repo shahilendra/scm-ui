@@ -280,7 +280,7 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
-            <div><img src="assets/icons/cow.png"></div>
+            <div><img [src]="profileData?.imageUrl?? 'assets/icons/cow.png'"></div>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -320,14 +320,21 @@
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                 <tr>
                   <td>
-                    <span class="red-color">Not For Slaughtering</span>
+                    <span class="red-color">{{profileData?.isSlaughtering? 'For Slaughtering': 'Not For Slaughtering'}}</span>
                   </td>
                 </tr>
                 <tr>
                     <td>
-                      <button mat-raised-button color="primary" (click)="milkYield()">Yes</button></td>
+                      <button mat-raised-button 
+                      color="primary"
+                      [disabled]="profileData?.isSlaughtering"
+                      
+                      (click)="isSlaughtering(true)">Yes</button></td>
                     
-                    <td><button mat-raised-button color="primary" (click)="openLactation()">No</button></td>
+                    <td><button mat-raised-button 
+                      color="primary" 
+                      [disabled]="!profileData?.isSlaughtering"
+                      (click)="isSlaughtering(false)">No</button></td>
                     
                 </tr>
               </table>

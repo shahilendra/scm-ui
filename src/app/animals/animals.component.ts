@@ -240,4 +240,23 @@ export class AnimalsComponent {
       this.getProfile();
     });
   }
+
+  isSlaughtering(slaughtering: any) {
+    var massage = '';
+    debugger;
+    if(slaughtering === true) {
+      massage = 'Are you want to slaughtering this animal?';
+    } else {
+      massage = 'Are you not want to slaughtering this animal?';
+    }
+    var result = confirm(massage);
+    if (result==true) {      
+      this.animalService.getSlaughtering(this.selectedAnimal.id, slaughtering)
+      .subscribe((data)=>{
+        this.toastr.success('Slaughtering Save Sucessfully!', 'Animals');
+        this.getProfile();
+      }, (error)=>{
+      })
+    } 
+  }
 }

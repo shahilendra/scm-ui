@@ -20,4 +20,7 @@ export class AnimalService {
   getProfile(animalId: any): Observable<any> {    
     return this.http.get(`${config.baseApiURL}v1/animals/${animalId}/profiles`);
   }
+  getSlaughtering(animalId: any, status: any): Observable<any> {    
+    return this.http.post(`${config.baseApiURL}v1/animals/${animalId}/slaughtering`, {isSlaughtering: status});
+  }
 }
