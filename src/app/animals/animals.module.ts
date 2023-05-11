@@ -30,6 +30,8 @@ import { AnimalExaminationComponent } from './animal-examination/animal-examinat
 import { AnimalBreedingComponent } from './animal-breeding/animal-breeding.component';
 import { AnimalPregnancyComponent } from './animal-pregnancy/animal-pregnancy.component';
 import { MatIconModule } from '@angular/material/icon';
+import { UpdateAnimalComponent } from './update-animal/update-animal.component';
+import { AnimalOthersInfoComponent } from './animal-others-info/animal-others-info.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { MatIconModule } from '@angular/material/icon';
     AnimalExaminationComponent,
     AnimalBreedingComponent,
     AnimalPregnancyComponent,
+    UpdateAnimalComponent,
+    AnimalOthersInfoComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,116 @@
+<div class="header-container">
+    <div class="contact-dialog-title">
+      <div class="text-white"><h1>Others Information</h1></div>
+        <button mat-icon-button (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+          </button>      
+    </div>
+  </div>
+<h2 *ngIf="this.data.selectedAnimal.gender=='Female'"> Calf Information</h2>
+  <table mat-table [dataSource]="othersInfo?.calfs" class="mat-elevation-z8" *ngIf="this.data.selectedAnimal.gender=='Female'">            
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="earTag">
+        <th mat-header-cell *matHeaderCellDef> Ear Tag </th>
+        <td mat-cell *matCellDef="let element"> {{element.earTag}} </td>
+    </ng-container> 
+    <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.birthDate| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="calvingType">
+        <th mat-header-cell *matHeaderCellDef> Calving Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.calvingType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="breed">
+        <th mat-header-cell *matHeaderCellDef> Breed </th>
+        <td mat-cell *matCellDef="let element"> {{element.breed}} </td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="calfColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: calfColumns;"></tr>
+</table>
+<h2>Dam Information</h2>
+<table>
+    <tr>
+        <td>
+            <b>Ear Tag: </b> {{othersInfo?.damDetails?.damEarTag?? 'Unknown'}}
+        </td>
+        <td>
+            <b>Breed: </b> {{othersInfo?.damDetails?.damBreed?? 'Unknown'}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Name: </b> {{othersInfo?.damDetails?.damName?? 'Unknown'}}
+        </td>
+        <td>
+            <b>Birth Date: </b> {{othersInfo?.damDetails?.damBirthDate|date: 'dd/MM/yyyy'}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Lactation Milk Yield: </b> {{othersInfo?.damDetails?.damLactationMilkYield??0}}
+        </td>
+        <td>
+            <b>Lactation number of the Calving: </b> {{othersInfo?.damDetails?.damLactationNumber}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Daily Milk Yield: </b> {{othersInfo?.damDetails?.damDailyMilkYield??0}}
+        </td>
+        <td>
+            <b>Current Lactation No: </b> {{othersInfo?.damDetails?.damCurrentLactationNo?? 'Unknown'}}
+        </td>
+    </tr>
+</table>
+<h2> Sibling Information</h2>
+  <table mat-table [dataSource]="othersInfo?.siblings" class="mat-elevation-z8">            
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="earTag">
+        <th mat-header-cell *matHeaderCellDef> Ear Tag </th>
+        <td mat-cell *matCellDef="let element"> {{element.earTag}} </td>
+    </ng-container> 
+    <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.birthDate| date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="calvingType">
+        <th mat-header-cell *matHeaderCellDef> Calving Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.calvingType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="breed">
+        <th mat-header-cell *matHeaderCellDef> Breed </th>
+        <td mat-cell *matCellDef="let element"> {{element.breed}} </td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+    </ng-container>  
+    <ng-container matColumnDef="siblingType">
+        <th mat-header-cell *matHeaderCellDef> Sibling Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.siblingType}} </td>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="calfColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: calfColumns;"></tr>
+</table>
+<h2>Sire Information</h2>
+<table>
+    <tr>
+        <td>
+            <b>Ear Tag: </b> {{othersInfo?.damDetails?.sireEarTag?? 'Unknown'}}
+        </td>
+        <td>
+            <b>Breed: </b> {{othersInfo?.damDetails?.sireBreed?? 'Unknown'}}
+        </td>
+    </tr>
+</table>

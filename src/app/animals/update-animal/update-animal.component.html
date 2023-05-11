@@ -1,0 +1,151 @@
+<div class="header-container">
+    <div class="contact-dialog-title">
+      <div class="text-white"><h1>Update Animal</h1></div>
+        <button mat-icon-button (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+          </button>      
+    </div>
+  </div>
+<form [formGroup]="form" class="example-form" (ngSubmit)="save()">    
+  
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Ear Tag</mat-label>
+                    <input matInput formControlName="earTag">
+                  </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" >
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Breed</mat-label>
+                    <mat-select formControlName="breedId" >
+                        <mat-option *ngFor="let breed of breeds" [value]="breed.id">
+                        {{breed.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Color</mat-label>
+                    <mat-select  formControlName="colorId" >
+                        <mat-option *ngFor="let color of colors" [value]="color.id">
+                        {{color.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    <mat-label>Gender</mat-label>
+                    <mat-radio-group
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group"
+                        formControlName="gender">
+                        <mat-radio-button class="example-radio-button" *ngFor="let season of genders" [value]="season">
+                            {{season}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+            </td>
+            <td>
+                <mat-label>Insurance</mat-label>
+                <mat-radio-group
+                    aria-labelledby="example-radio-group-label"
+                    class="example-radio-group"
+                    formControlName="insurance">
+                    <mat-radio-button class="example-radio-button" *ngFor="let season of insurances" [value]="season">
+                        {{season}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label> Birth Weight</mat-label>
+                    <input matInput formControlName="birthWeight" type="number">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Birth Date</mat-label>
+                    <input matInput formControlName="birthDate" [matDatepicker]="birthDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
+                    <mat-datepicker  #birthDate></mat-datepicker>
+                  </mat-form-field>
+            </td>
+        </tr>
+    </table>
+  
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Notes</mat-label>
+        <textarea matInput  formControlName="notes"></textarea>
+      </mat-form-field>
+    </p>
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Purchase Price</mat-label>
+                    <input matInput formControlName="purchasePrice" type="number">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Purchase Date</mat-label>
+                    <input matInput formControlName="purchaseDate" [matDatepicker]="purchaseDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="purchaseDate"></mat-datepicker-toggle>
+                    <mat-datepicker  #purchaseDate></mat-datepicker>
+                  </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                        <mat-label>Purchase Body Weight</mat-label>
+                        <input matInput formControlName="purchaseBodyWeight" type="number">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Dam Ear Tag</mat-label>
+                        <input matInput formControlName="damEarTag">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                        <mat-label>Sire Register ID</mat-label>
+                        <input matInput formControlName="sireRegisterId">
+                </mat-form-field>
+            </td>
+            <td>
+            <mat-form-field class="example-full-width">
+                <mat-label>Horn</mat-label>
+                <mat-select  formControlName="horn" >
+                    <mat-option *ngFor="let horn of horns" [value]="horn">
+                    {{horn}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <button type="submit" [disabled]="!form.valid"  >Save</button>
+    </p>
+  </form>

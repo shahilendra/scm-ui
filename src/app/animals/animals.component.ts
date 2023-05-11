@@ -18,6 +18,8 @@ import { AnimalVaccinationComponent } from './animal-vaccination/animal-vaccinat
 import { AnimalBreedingComponent } from './animal-breeding/animal-breeding.component';
 import { AnimalBreedingService } from './animal-breeding/animal-breeding.service';
 import { AnimalPregnancyComponent } from './animal-pregnancy/animal-pregnancy.component';
+import { UpdateAnimalComponent } from './update-animal/update-animal.component';
+import { AnimalOthersInfoComponent } from './animal-others-info/animal-others-info.component';
 
 @Component({
   selector: 'app-animals',
@@ -258,5 +260,27 @@ export class AnimalsComponent {
       }, (error)=>{
       })
     } 
+  }
+  updateAnimal() {
+    const dialogRef = this.dialog.open(UpdateAnimalComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProfile();
+      this.getAnimals();
+    });
+  }
+  othersInfo() {
+    const dialogRef = this.dialog.open(AnimalOthersInfoComponent, {
+      data: {selectedAnimal: this.selectedAnimal},
+      width: '800px',
+      height: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // this.getProfile();
+      // this.getAnimals();
+    });
   }
 }

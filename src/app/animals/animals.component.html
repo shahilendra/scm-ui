@@ -54,8 +54,8 @@
                 </table>
                 <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
                     <tr>
-                        <td><button mat-raised-button color="primary">Update Data</button></td>
-                        <td><button mat-raised-button color="primary">Other Information</button></td>
+                        <td><button mat-raised-button color="primary" (click)="updateAnimal()">Update Data</button></td>
+                        <td><button mat-raised-button color="primary" (click)="othersInfo()">Other Information</button></td>
                         <td><button mat-raised-button color="warn">Delete Animal</button></td>
                         <td><button mat-raised-button color="primary" (click)="openDialog()">Add Notes</button></td>
                         <td><button mat-raised-button color="primary">Transaction History</button></td>
@@ -98,11 +98,11 @@
           <mat-card-content class="dashboard-card-content">
             <div>
               <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
-                <tr>
+                <tr *ngIf="selectedAnimal.gender=='Female'">
                     <td>
                       <button mat-raised-button color="primary" (click)="pregnancyCheck()" >Pregnancy Check</button></td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="selectedAnimal.gender=='Female'">
                     <td><button mat-raised-button color="primary" >Add Calf</button></td>
                     
                 </tr>
@@ -120,7 +120,7 @@
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div>
-              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal">
+              <table class="example-full-width" cellspacing="0" *ngIf="selectedAnimal.gender=='Female'" >
                 <tr *ngIf="profileData?.inseminationStatus">
                   <td class="red-color">
                     <b>Insemination Status</b>

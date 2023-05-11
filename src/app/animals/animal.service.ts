@@ -17,10 +17,16 @@ export class AnimalService {
     return this.http.post(`${config.baseApiURL}v1/animals`, animal);
   }
 
+  put(animal: any, animalId: any): Observable<any> {    
+    return this.http.put(`${config.baseApiURL}v1/animals/${animalId}`, animal);
+  }
   getProfile(animalId: any): Observable<any> {    
     return this.http.get(`${config.baseApiURL}v1/animals/${animalId}/profiles`);
   }
   getSlaughtering(animalId: any, status: any): Observable<any> {    
     return this.http.post(`${config.baseApiURL}v1/animals/${animalId}/slaughtering`, {isSlaughtering: status});
+  }
+  getOthersInfo(animalId: any): Observable<any> {    
+    return this.http.get(`${config.baseApiURL}v1/animals/${animalId}/others-info`);
   }
 }
